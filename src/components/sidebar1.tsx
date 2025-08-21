@@ -84,15 +84,26 @@ export default function Sidebar() {
       {/* Create Group Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white rounded-xl shadow-lg w-96 p-6 text-black">
-            <div className="flex justify-end">
-              <button onClick={() => setShowCreateModal(false)} className="text-black hover:text-gray-700 text-2xl leading-none">
-              &times;
+          <div className="bg-white rounded-xl shadow-lg w-96 p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-black">Create Group</h2>
+              <button onClick={() => setShowCreateModal(false)} className="text-gray-500 hover:text-gray-800">
+                &times;
               </button>
             </div>
-            <div className="mt-2 text-center">
-              <p>please login if you have an account or sign up before create group or join group</p>
-            </div>
+            <form className="space-y-4">
+              <input
+                type="text"
+                placeholder="Enter group name"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2CA6A4]"
+              />
+              <button
+                type="submit"
+                className="w-full bg-[#2CA6A4] text-white py-2 rounded-lg hover:bg-[#2CA6A4]/90"
+              >
+                Create
+              </button>
+            </form>
           </div>
         </div>
       )}
@@ -100,15 +111,26 @@ export default function Sidebar() {
       {/* Join Group Modal */}
       {showJoinModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white rounded-xl shadow-lg w-96 p-6 text-black">
-            <div className="flex justify-end">
-              <button onClick={() => setShowJoinModal(false)} className="text-black hover:text-gray-700 text-2xl leading-none">
-              &times;
+          <div className="bg-white rounded-xl shadow-lg w-96 p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold text-black">Join Group</h2>
+              <button onClick={() => setShowJoinModal(false)} className="text-gray-500 hover:text-gray-800">
+                &times;
               </button>
             </div>
-            <div className="mt-2 text-center">
-              <p>please login if you have an account or sign up before create group or join group</p>
-            </div>
+            <form className="space-y-4">
+              <input
+                type="text"
+                placeholder="Enter code or link"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2CA6A4]"
+              />
+              <button
+                type="submit"
+                className="w-full bg-[#2CA6A4] text-white py-2 rounded-lg hover:bg-[#2CA6A4]/90"
+              >
+                Join
+              </button>
+            </form>
           </div>
         </div>
       )}
