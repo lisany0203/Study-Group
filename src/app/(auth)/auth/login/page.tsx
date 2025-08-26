@@ -61,8 +61,8 @@ export default function LoginPage() {
   return (
     <>
       <div className="absolute top-4 left-4">
-              <BackButton />
-            </div>
+        <BackButton />
+      </div>
       {/* Head component for SEO and browser tab title */}
       <Head>
         <title>Login - KoStudy</title>

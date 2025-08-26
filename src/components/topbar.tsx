@@ -5,7 +5,7 @@ export default function Topbar() {
   return (
     <header className="w-full bg-white border-b border-border text-[#0A2342] px-6 py-4 flex items-center justify-between">
       {/* Search Bar: simple GET form -> /search?q=... */}
-      <form action="/search" method="GET" className="flex items-center gap-2">
+      <form action="/dashboard/search" method="GET" className="flex items-center gap-2">
         <input
           name="q"
           type="text"
