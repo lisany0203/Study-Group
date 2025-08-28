@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import Head from 'next/head'; // For setting page title and meta tags
 import BackButton from '@/components/backbutton'; // Import the BackButton component
+import { createClient } from '@/utils/supabase/client';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -12,51 +13,55 @@ export default function LoginPage() {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage('');
+  e.preventDefault();
+  setLoading(true);
+  setMessage('');
 
-    // --- Placeholder for actual authentication logic ---
-    // In a real application, you would integrate with an authentication service (e.g., Firebase, NextAuth.js, your own backend API).
-    // Example:
-    // try {
-    //   const response = await fetch('/api/auth/login', { // Replace with your API endpoint
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ email, password }),
-    //   });
-    //   if (!response.ok) {
-    //     throw new Error('Login failed. Invalid credentials.');
-    //   }
-    //   const data = await response.json();
-    //   console.log('Login successful:', data);
-    //   // Redirect to dashboard or a protected route
-    //   // For example: window.location.href = '/dashboard'; or using Next.js router
-    //   setMessage('Login successful! Redirecting...');
-    // } catch (error: any) {
-    //   console.error('Login error:', error.message);
-    //   setMessage(error.message || 'Login failed. Please try again.');
-    // } finally {
-    //   setLoading(false);
-    // }
-    // --- End Placeholder ---
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
+    if (error) throw new Error(error.message);
+
+    // Successful login
+    setMessage('Login successful! Redirecting...');
+    setTimeout(() => window.location.href = '/dashboard', 1500);
+
+  } catch (err: any) {
+    console.log('Login error:', err.message);
+    setMessage(err.message || 'Login failed. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+  const handleGoogleLogin = async () => {
     // Simulated login for demonstration
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-      if (email === 'test@example.com' && password === 'password') {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Login failed');
+        }
+        
+
         setMessage('Login successful! Redirecting...');
-        // In a real app, you would redirect here
-        // For example: window.location.href = '/dashboard';
-      } else {
-        throw new Error('Invalid email or password.');
+        // Example redirect:
+        window.location.href = '/dashboard';
+      } catch (err: any) {
+        setMessage(err.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error: any) {
-      setMessage(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }
 
   return (
     <>
@@ -133,7 +138,7 @@ export default function LoginPage() {
           {/* Link to Sign Up page */}
           <div className="text-center text-sm text-gray-600">
             Don't have an account? {' '}
-            <a href="/signup" className="text-[#2CA6A4] hover:underline">
+            <a href="/auth/signup" className="text-[#2CA6A4] hover:underline">
               Sign up
             </a>
           </div>
@@ -142,3 +147,4 @@ export default function LoginPage() {
     </>
   );
 }
+

@@ -1,5 +1,6 @@
 // src/components/topbar.tsx
 import Link from "next/link"; // Ensure Link is imported
+import LogoutButton from '@/components/logout';
 
 export default function Topbar1() {
   return (
@@ -23,7 +24,7 @@ export default function Topbar1() {
         <Link href="/about" className="px-4 py-2 bg-[#0A2342] text-white rounded hover:bg-[#0A2342]/80 transition">
           About
         </Link>
-        
+        <LogoutButton />
       </div>
     </header>
   );

@@ -27,12 +27,15 @@
 // }
 
 "use client";
+import { groups } from "@/db/schema";
 import React, { useState } from "react";
 
 export default function Sidebar() {
   const [showOptions, setShowOptions] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showJoinModal, setShowJoinModal] = useState(false);
+  const [loadingGroups, setLoadingGroups] = useState(true);
+  const [groups, setGroups] = useState<any[]>([]);
 
   return (
     <aside className="w-64 bg-[#0A2342] text-white p-6 relative">
@@ -78,10 +81,27 @@ export default function Sidebar() {
             </div>
           )}
         </div>
+        
       </nav>
       <hr className="border-t border-[#717171] my-0 -mx-6 " />
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {loadingGroups ? (
+        <p>Loading groups...</p>
+      ) : groups.length === 0 ? (
+        <p>No groups found. Create one!</p>
+      ) : (
+        groups.map((group) => (
+          <div key={group.id} className="p-4 bg-white rounded shadow">
+            <h3 className="font-bold text-lg">{group.name}</h3>
+            <p className="text-gray-600">{group.subject}</p>
+            <p>{group.description}</p>
+            <p className="text-sm text-gray-400">{group.visibility}</p>
+          </div>
+        ))
+      )}
+    </div>
 
-      {/* Create Group Modal */}
+{/* Create Group Modal */}
 {showCreateModal && (
   <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
     <div className="bg-white rounded-xl shadow-lg w-96 p-6">

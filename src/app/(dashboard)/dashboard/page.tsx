@@ -1,11 +1,73 @@
 'use client'; // This directive is necessary to use client-side hooks like Link
 
 import Link from 'next/link'; // Import the Link component for navigation
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createClient } from '@/utils/supabase/client';
+
+
 export default function Homepage() {
+      const supabase = createClient();  
       const [showOptions, setShowOptions] = useState(false);
       const [showCreateModal, setShowCreateModal] = useState(false);
       const [showJoinModal, setShowJoinModal] = useState(false);
+      const [groupName, setGroupName] = useState('');
+      const [subject, setSubject] = useState('');
+      const [description, setDescription] = useState('');
+      const [visibility, setVisibility] = useState<'public' | 'private'>('public');
+      const [loading, setLoading] = useState(false);
+      const [groups, setGroups] = useState<any[]>([]);
+      const [loadingGroups, setLoadingGroups] = useState(true);
+      
+      const fetchGroups = async () => {
+        setLoadingGroups(true);
+        const { data, error } = await supabase
+          .from('groups')
+          .select('*')
+          .order('created_at', { ascending: false });
+        if (error) {
+          console.error('Error fetching groups:', error.message);
+        } else {
+          setGroups(data);
+        }
+        setLoadingGroups(false);
+      };
+
+      useEffect(() => {
+        fetchGroups();
+      }, []);
+
+      // Handle create group
+      const handleCreateGroup = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+          const response = await fetch('/api/groups/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: groupName,
+              subject,
+              description,
+              visibility,
+              userId: 'any-random-id-or-empty', // you can just put a placeholder for now
+            }),
+          });
+
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.message || 'Failed to create group');
+
+          alert('Group created: ' + data.group.name);
+          setShowCreateModal(false);
+          setGroupName('');
+          setSubject('');
+          setDescription('');
+        } catch (err: any) {
+          alert(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
 
   return (
     <>
@@ -63,7 +125,7 @@ export default function Homepage() {
                   &times;
                 </button>
               </div>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleCreateGroup}>
                 <div>
                   <label htmlFor="group-name" className="block text-sm font-semibold text-gray-700 mb-1">Group Name</label>
                   <input
@@ -111,8 +173,9 @@ export default function Homepage() {
                   <button
                     type="submit"
                     className="px-6 py-2 rounded-lg bg-[#2CA6A4] text-white hover:bg-[#2CA6A4]/90 transition-colors"
+                    disabled={loading}
                   >
-                    Create
+                    {loading ? 'Creating...' : 'Create'}
                   </button>
                 </div>
               </form>
