@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    turbo: true,
+    // turbo: true, // disable Turbopack for production
   },
   eslint: {
-    ignoreDuringBuilds: true, // disables ESLint errors breaking the build
+    ignoreDuringBuilds: true, // prevent ESLint from blocking deploy
   },
   typescript: {
-    ignoreBuildErrors: true, // temporarily ignore TypeScript errors during build
+    ignoreBuildErrors: true, // allow TypeScript errors to not block deploy
   },
 };
 
