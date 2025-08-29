@@ -1,13 +1,13 @@
 'use client'; // This directive is necessary to use client-side hooks like Link
 
-import Link from 'next/link'; // Import the Link component for navigation
+// import Link from 'next/link'; // Import the Link component for navigation
 import React, { useEffect, useState } from "react";
 import { createClient } from '@/utils/supabase/client';
 
 
 export default function Homepage() {
       const supabase = createClient();  
-      const [showOptions, setShowOptions] = useState(false);
+      // const [showOptions, setShowOptions] = useState(false);
       const [showCreateModal, setShowCreateModal] = useState(false);
       const [showJoinModal, setShowJoinModal] = useState(false);
       const [groupName, setGroupName] = useState('');
@@ -62,8 +62,8 @@ export default function Homepage() {
           setGroupName('');
           setSubject('');
           setDescription('');
-        } catch (err: any) {
-          alert(err.message);
+        } catch (err: unknown) {
+          alert((err as Error).message);
         } finally {
           setLoading(false);
         }
@@ -148,7 +148,7 @@ export default function Homepage() {
                   <label htmlFor="descriptions" className="block text-sm font-semibold text-gray-700 mb-1">Descriptions</label>
                   <textarea
                     id="descriptions"
-                    placeholder=""
+                    placeholder="write anything"
                     className="w-full h-24 text-black border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2CA6A4] resize-none"
                   ></textarea>
                 </div>

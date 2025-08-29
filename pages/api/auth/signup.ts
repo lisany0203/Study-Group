@@ -29,8 +29,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       message: "Sign up successful! You can log in immediately.",
       user: data.user,
     });
-  } catch (err: any) {
-    console.error("Sign up API error:", err.message);
-    return res.status(500).json({ message: "Internal server error", details: err.message });
+  } catch (err: unknown) {
+    console.error("Sign up API error:", (err as Error).message);
+    return res.status(500).json({ message: "Internal server error", details: (err as Error).message });
   }
 }

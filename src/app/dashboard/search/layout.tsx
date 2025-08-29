@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 // import "./globals.css";
 import Topbar1 from '@/components/topbar1';
-import Sidebar1 from '@/components/sidebar1';
+import Sidebar2 from '@/components/sidebar2';
 
 // Fonts
 const geistSans = Geist({
@@ -28,12 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="bg-[#FCF9F6] text-foreground">
+    
         <div className="flex min-h-screen">
           
           {/* Sidebar */}
-          <Sidebar1 />
+          <Sidebar2 />
           
 
           {/* Main Area */}
@@ -48,7 +47,6 @@ export default function RootLayout({
             </main>
           </div>
         </div>
-      </body>
-    </html>
+      
   );
 }

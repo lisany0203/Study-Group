@@ -21,8 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       user: data.user,
       session: data.session,
     });
-  } catch (err: any) {
-    console.error("Login API error:", err.message);
-    return res.status(500).json({ message: "Internal server error", details: err.message });
+  } catch (err: unknown) {
+    console.error("Login API error:", (err as Error).message);
+    return res.status(500).json({ message: "Internal server error", details: (err as Error).message });
   }
 }

@@ -97,10 +97,10 @@ export default function Sidebar() {
               <p>please login if you have an account or sign up before create group or join group</p>
             </div>
             <div className="mt-6 flex justify-center gap-4">
-              <Link href="/auth/login" className="px-6 py-3 bg-[#2CA6A4] text-white rounded hover:bg-[#2CA6A4]/80 transition text-center">
+              <Link href="/login" className="px-6 py-3 bg-[#2CA6A4] text-white rounded hover:bg-[#2CA6A4]/80 transition text-center">
                 Login
               </Link>
-              <Link href="/auth/signup" className="px-6 py-3 bg-white text-[#2CA6A4] rounded hover:bg-[#2CA6A4]/80 hover:text-white transition text-center border border-[#2CA6A4]">
+              <Link href="/signup" className="px-6 py-3 bg-white text-[#2CA6A4] rounded hover:bg-[#2CA6A4]/80 hover:text-white transition text-center border border-[#2CA6A4]">
                 Sign Up
               </Link>
             </div>
@@ -119,10 +119,10 @@ export default function Sidebar() {
               <p>please login if you have an account or sign up before create group or join group</p>
             </div>
             <div className="mt-6 flex justify-center gap-4">
-              <Link href="/auth/login" className="px-6 py-3 bg-[#2CA6A4] text-white rounded hover:bg-[#2CA6A4]/80 transition text-center">
+              <Link href="/login" className="px-6 py-3 bg-[#2CA6A4] text-white rounded hover:bg-[#2CA6A4]/80 transition text-center">
                 Login
               </Link>
-              <Link href="/auth/signup" className="px-6 py-3 bg-white text-[#2CA6A4] rounded hover:bg-[#2CA6A4]/80 hover:text-white transition text-center border border-[#2CA6A4]">
+              <Link href="/signup" className="px-6 py-3 bg-white text-[#2CA6A4] rounded hover:bg-[#2CA6A4]/80 hover:text-white transition text-center border border-[#2CA6A4]">
                 Sign Up
               </Link>
             </div>

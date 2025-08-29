@@ -19,7 +19,7 @@ export default function LoginPage() {
 
   try {
     const supabase = createClient();
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -30,38 +30,38 @@ export default function LoginPage() {
     setMessage('Login successful! Redirecting...');
     setTimeout(() => window.location.href = '/dashboard', 1500);
 
-  } catch (err: any) {
-    console.log('Login error:', err.message);
-    setMessage(err.message || 'Login failed. Please try again.');
+  } catch (err: unknown) {
+    console.log('Login error:', (err as Error).message);
+    setMessage((err as Error).message || 'Login failed. Please try again.');
   } finally {
     setLoading(false);
   }
 };
-  const handleGoogleLogin = async () => {
-    // Simulated login for demonstration
-    try {
-        const response = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
-        });
+  // const handleGoogleLogin = async () => {
+  //   // Simulated login for demonstration
+  //   try {
+  //       const response = await fetch('/api/auth/login', {
+  //         method: 'POST',
+  //         headers: { 'Content-Type': 'application/json' },
+  //         body: JSON.stringify({ email, password }),
+  //       });
 
-        const data = await response.json();
+  //       const data = await response.json();
 
-        if (!response.ok) {
-          throw new Error(data.message || 'Login failed');
-        }
+  //       if (!response.ok) {
+  //         throw new Error(data.message || 'Login failed');
+  //       }
         
 
-        setMessage('Login successful! Redirecting...');
-        // Example redirect:
-        window.location.href = '/dashboard';
-      } catch (err: any) {
-        setMessage(err.message);
-      } finally {
-        setLoading(false);
-      }
-  }
+  //       setMessage('Login successful! Redirecting...');
+  //       // Example redirect:
+  //       window.location.href = '/dashboard';
+  //     } catch (err: unknown) {
+  //       setMessage((err as Error).message);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  // }
 
   return (
     <>

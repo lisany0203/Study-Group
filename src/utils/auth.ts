@@ -39,7 +39,7 @@ export async function updateUserMetadata(metadata: object) {
 }
 
 // ON AUTH STATE CHANGE
-export function onAuthStateChange(callback: (user: any) => void) {
+export function onAuthStateChange(callback: (user: unknown) => void) {
   const { data: authListener } = supabase.auth.onAuthStateChange(
     (event, session) => {
       callback(session?.user ?? null);

@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { supabaseAdmin } from '@/utils/supabase/serverClient'; // Make sure this uses service role key
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,8 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { data: group, error } = await supabaseAdmin
-      .from('groups')
+    const { data: group, error } = await supabaseAdmin.from('groups')
       .insert([{ name, subject, description, visibility, owner: userId }])
       .select()
       .single();
@@ -20,8 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (error) throw error;
 
     res.status(201).json({ message: 'Group created successfully', group });
-  } catch (error: any) {
-    console.error('Create group error:', error.message);
-    res.status(500).json({ message: 'Internal server error', details: error.message });
+  } catch (error: unknown) {
+    console.error('Create group error:', (error as Error).message);
+    res.status(500).json({ message: 'Internal server error', details: (error as Error).message });
   }
 }

@@ -42,9 +42,9 @@ export default function SignupPage() {
         router.push('/dashboard');
       }, 1500);
 
-    } catch (error: any) {
-      console.log('Sign up error:', error.message);
-      setMessage(error.message || 'Sign up failed. Please try again.');
+    } catch (error: unknown) {
+      console.log('Sign up error:', (error as Error).message);
+      setMessage((error as Error).message || 'Sign up failed. Please try again.');
     } finally {
       setLoading(false);
     }

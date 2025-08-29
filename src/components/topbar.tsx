@@ -12,9 +12,9 @@ export default function Topbar() {
           placeholder="Search..."
           className="px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2CA6A4] bg-gray-100 text-[#0A2342] w-64"
         />
-        <button className="px-3 py-2 bg-[#2CA6A4] text-white rounded hover:bg-[#2CA6A4]/80 transition">
+        <Link href="/search" className=" px-3 py-2 bg-[#2CA6A4] text-white rounded hover:bg-[#2CA6A4]/80 transition">
           Search
-        </button>
+        </Link>
       </form>
 
       {/* Nav links (client navigation) */}
