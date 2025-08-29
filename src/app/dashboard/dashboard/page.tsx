@@ -15,7 +15,7 @@ export default function Homepage() {
       const [description, setDescription] = useState('');
       const [visibility, setVisibility] = useState<'public' | 'private'>('public');
       const [loading, setLoading] = useState(false);
-      const [groups, setGroups] = useState<any[]>([]);
+      const [groups, setGroups] = useState<unknown[]>([]);
       const [loadingGroups, setLoadingGroups] = useState(true);
       
       const fetchGroups = async () => {
