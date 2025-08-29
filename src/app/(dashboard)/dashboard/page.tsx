@@ -25,7 +25,7 @@ export default function Homepage() {
           .select('*')
           .order('created_at', { ascending: false });
         if (error) {
-          console.error('Error fetching groups:', error.message);
+          console.log('Error fetching groups:', error.message);
         } else {
           setGroups(data);
         }

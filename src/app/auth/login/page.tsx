@@ -19,6 +19,7 @@ export default function LoginPage() {
   setMessage('');
 
   try {
+   
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -26,6 +27,7 @@ export default function LoginPage() {
 
     if (error) throw new Error(error.message);
 
+    // Successful login
     setMessage('Login successful! Redirecting...');
     setTimeout(() => window.location.href = '/dashboard', 1500);
 
