@@ -2,11 +2,11 @@
 
 // import Link from 'next/link'; // Import the Link component for navigation
 import React, { useEffect, useState } from "react";
-import { createClient } from '@/utils/supabase/client';
-
+// import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 
 export default function Homepage() {
-      const supabase = createClient();  
+      // const supabase = createClient();  
       // const [showOptions, setShowOptions] = useState(false);
       const [showCreateModal, setShowCreateModal] = useState(false);
       const [showJoinModal, setShowJoinModal] = useState(false);

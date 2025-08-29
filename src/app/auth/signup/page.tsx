@@ -6,7 +6,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import BackButton from '@/components/backbutton';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/utils/supabase/client'; // Assuming you have this file
+// import { createClient } from '@/utils/supabase/client'; // Assuming you have this file
+import { supabase } from '@/utils/supabase/client';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -51,7 +52,7 @@ export default function SignupPage() {
   };
 
   const handleGoogleLogin = async () => {
-    const supabase = createClient();
+    // const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {

@@ -4,7 +4,8 @@
 import { useState } from 'react';
 import Head from 'next/head'; // For setting page title and meta tags
 import BackButton from '@/components/backbutton'; // Import the BackButton component
-import { createClient } from '@/utils/supabase/client';
+// import { createClient } from '@/utils/supabase/client';
+import { supabase } from '@/utils/supabase/client';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,6 @@ export default function LoginPage() {
   setMessage('');
 
   try {
-    const supabase = createClient();
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -26,7 +26,6 @@ export default function LoginPage() {
 
     if (error) throw new Error(error.message);
 
-    // Successful login
     setMessage('Login successful! Redirecting...');
     setTimeout(() => window.location.href = '/dashboard', 1500);
 
